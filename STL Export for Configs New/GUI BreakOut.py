@@ -1,6 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
-from tkinter import messagebox
+from tkinter import filedialog, messagebox
 
 def submit():
     sketch_name = sketch_name_entry.get()
@@ -30,7 +29,7 @@ def submit():
     print("Maximum Number:", max_num)
     print("Folder Path:", folder_path)
 
-    messagebox.showinfo("Success", "Form submitted successfully!")
+    root.destroy()   
 
 def browse_folder():
     folder_path = filedialog.askdirectory()
@@ -97,3 +96,4 @@ clear_button.pack(pady=5)
 
 # Run the main event loop
 root.mainloop()
+
