@@ -23,8 +23,8 @@ def submit():
         max_num = int(max_num)
         if min_num >= max_num:
             raise ValueError("Minimum number must be less than maximum number.")
-    except ValueError as e:
-        messagebox.showerror("Error", str(e))
+    except ValueError:
+        messagebox.showerror("Error", "Min & Max number should be an integar.")
         return
     
     # Close the Tkinter window
