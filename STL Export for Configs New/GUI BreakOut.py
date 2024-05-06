@@ -96,4 +96,3 @@ clear_button.pack(pady=5)
 
 # Run the main event loop
 root.mainloop()
-
