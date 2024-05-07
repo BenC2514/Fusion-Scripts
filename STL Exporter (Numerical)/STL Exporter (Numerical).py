@@ -66,9 +66,13 @@ def run_export(sketch_name, min_num, max_num, folder_path):
        
         for x in groups:
             app.log("changing to " + str(x))
-            
+
             # Change the sketch text and majorAxis User Parameter
-            textSketch.sketchTexts[0].text = str(x)
+            try:
+                textSketch.sketchTexts[0].text = str(x)
+            except AttributeError:
+                messagebox.showerror("Error", "Could not find text sketch in project.\nCheck sketch is in root component.")
+                exit()
 
             # Repaint to see the body update
             design.computeAll()
