@@ -7,6 +7,7 @@ def run(context):
         ui = app.userInterface
         design = adsk.fusion.Design.cast(app.activeProduct)
         rootComp = design.rootComponent
+        sketches = rootComp.sketches
 
         # Input parameters
         defaultInputMin = '150'
@@ -21,6 +22,9 @@ def run(context):
         defaultParam = "length"
         Param_Input = ui.inputBox('Input Parameter Name', "", defaultParam)
 
+        defaultSketch = "text"
+        Sketch_Input = ui.inputBox('Input Sketch Name for Text', "", defaultSketch)
+
         defaultInputFolder = r'C:\Users\u4125590\Downloads\test'
         folderInput = ui.inputBox('Input path to save folder:', "", defaultInputFolder)
 
@@ -32,23 +36,35 @@ def run(context):
         # Generate list of sizes with floating point increments
         sizes = []
         current_size = min_value
-        while current_size <= max_value:
+        
+        while current_size <= max_value + (step_size/10):  # Add tolerance to ensure last step is included
             sizes.append(round(current_size, 2))  # Rounding to 2 decimal places for clarity
             current_size += step_size
+        app.log(str(sizes))
         
-        # Assign parameter to variable & check existance
+        # Assign parameter & sketch to variable & check existence
+        sketchText = sketches.itemByName(Sketch_Input[0])
+        if sketchText is None:
+            ui.messageBox(f'Sketch "{Sketch_Input}" not found.')
+            return
+
         ChngeParam = design.allParameters.itemByName(Param_Input[0])
         if ChngeParam is None:
             ui.messageBox(f'Parameter "{Param_Input}" not found.')
             return
         
         # Retrieve the original parameter expression (including its unit)
-        origParamExpr = ChngeParam.expression 
-        app.log(f'Original value: {origParamExpr}')
+        origParam = ChngeParam.expression
+        ChngeSketch = sketchText.sketchTexts.item(0)
+        origSketch = ChngeSketch.text
+
+        app.log(f'Original size value: {origParam}')
+        app.log(f'Original sketch value: {origSketch}')
 
         for dim in sizes:
-            # Change parameter in project
+            # Change parameter & sketch in project
             ChngeParam.expression = str(dim)
+            ChngeSketch.text = str(dim)
 
             # Let the view update
             adsk.doEvents()
@@ -66,7 +82,8 @@ def run(context):
             app.log("Exported " + str(dim))
     
         # Reset parameter to original value
-        ChngeParam.expression = origParamExpr
+        ChngeParam.expression = origParam
+        ChngeSketch.text = origSketch
         adsk.doEvents()
 
         ui.messageBox('Finished.')

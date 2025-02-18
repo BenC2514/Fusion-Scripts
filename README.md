@@ -1,11 +1,14 @@
-BenC2514 Fusion Scripts
+# BenC2514 Fusion Scripts
 
-Save folder of desired tool to fusion scripts folder and add in fusion under utilities->add-ins->scripts & add-ins->my scripts +
+*Save folder of desired tool to fusion scripts folder and add in fusion under utilities->add-ins->scripts & add-ins->my scripts +*
 
-STL Exporter (Numerical)
+## STL Exporter (Numerical)
 -Exports mass stl files with a single numerical variation, handy for differentiating between multiple identical parts
 -Create the text you want to alter in its own sketch in the root part then reference the sketch name in the gui when prompted 
 
-STL Exporter (CSV)
--Exports stl files taking single-line csv input
--Create the text you want to alter in its own sketch in the root part then reference the sketch name in the gui when prompted 
+## STL Exporter (CSV)
+- Exports stl files taking single-line csv input
+- Create the text you want to alter in its own sketch in the root part then reference the sketch name in the gui when prompted 
+1) Open .csv file
+2) Select Save Location
+3) Enter Name of Sketch 
