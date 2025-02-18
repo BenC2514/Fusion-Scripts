@@ -26,7 +26,7 @@ def run(context):
         Sketch_Input = ui.inputBox('Input Sketch Name for Text', "", defaultSketch)
 
         defaultInputFolder = r'C:\Users\u4125590\Downloads\test'
-        folderInput = ui.inputBox('Input path to save folder:', "", defaultInputFolder)
+        folderInput = ui.inputBox('Export Destination:', "", defaultInputFolder)
 
         # Create list of sizes from user inputs        
         min_value = float(min_Input[0])
